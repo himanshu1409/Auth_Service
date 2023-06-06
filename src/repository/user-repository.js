@@ -20,6 +20,18 @@ class UserRepository {
       throw error;
     }
   }
+
+  async getById(userId) {
+    try {
+      const user = await User.findByPk(userId, {
+        attributes: ["email", "id"], // Sequelize attributes to hide password
+      });
+      return user;
+    } catch (error) {
+      console.log("SOmething went wrong at the Repository Layer");
+      throw error;
+    }
+  }
 }
 
 module.exports = UserRepository;
