@@ -17,5 +17,6 @@ router.post(
 );
 
 router.get("/isAuthenticated", UserController.isAuthenticated);
+router.get("/isAdmin", UserController.isAdmin);
 
 module.exports = router;

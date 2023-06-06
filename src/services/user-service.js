@@ -14,7 +14,7 @@ class UserService {
       const user = await this.userRepository.create(data);
       return user;
     } catch (error) {
-      console.log("SOmething went wrong at the Service Layer");
+      console.log("Something went wrong at the Service Layer");
       throw error;
     }
   }
@@ -81,6 +81,15 @@ class UserService {
       return bcrypt.compareSync(userInputPassword, encryptedPassword);
     } catch (error) {
       console.log("Something went wrong in password validation");
+      throw error;
+    }
+  }
+
+  isAdmin(userId) {
+    try {
+      return this.userRepository.isAdmin(userId);
+    } catch (error) {
+      console.log("Something went wrong at the Service Layer");
       throw error;
     }
   }
