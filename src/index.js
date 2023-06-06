@@ -3,6 +3,7 @@ const bodyParser = require("body-parser");
 
 const { PORT } = require("./config/serverConfig");
 const apiRoutes = require("./routes/index");
+const db = require("./models/index");
 
 const app = express();
 
@@ -17,11 +18,16 @@ const prepareAndStartServer = () => {
 
   app.listen(PORT, async () => {
     console.log(`Server started on Port: ${PORT}`);
+
+    if (process.env.DB_SYNC == "true") {
+      db.sequelize.sync({ alter: true });
+    }
+
     // const repo = new UserRepository();
     // const response = await repo.getById(1);
     // console.log(response);
 
-    const service = new UserService();
+    // const service = new UserService();
     // const newToken = service.createToken({
     //   email: "himanshu@gmail.com",
     //   id: 1,
