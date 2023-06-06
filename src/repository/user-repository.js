@@ -7,7 +7,10 @@ class UserRepository {
       const user = await User.create(data);
       return user;
     } catch (error) {
-      console.log("SOmething went wrong at the Repository Layer");
+      if (error.name == "SequelizeValidationError") {
+        throw new ValidationError(error);
+      }
+      console.log("Something went wrong at the Repository Layer");
       throw error;
     }
   }
@@ -17,7 +20,7 @@ class UserRepository {
       await User.destroy({ where: { id: userId } });
       return true;
     } catch (error) {
-      console.log("SOmething went wrong at the Repository Layer");
+      console.log("Something went wrong at the Repository Layer");
       throw error;
     }
   }
@@ -29,7 +32,7 @@ class UserRepository {
       });
       return user;
     } catch (error) {
-      console.log("SOmething went wrong at the Repository Layer");
+      console.log("Something went wrong at the Repository Layer");
       throw error;
     }
   }
